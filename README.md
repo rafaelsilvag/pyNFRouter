@@ -5,7 +5,7 @@ Netfilter Router on UserSpace
 
 
 Instalation
-----------
+-----------
 
 Install library libnetfilter-queue (Ubuntu 12.04):
 ```sh
@@ -15,7 +15,8 @@ $ sudo apt-get install libnetfilter-queue-dev libnetfilter-queue1
 NetfilterQueue module install:
 
 ```sh
-$ pip install NetfilterQueue 
+$ sudo apt-get install libnetfilter-queue-python
+pip install NetfilterQueue  
 ```
 
 Usage
