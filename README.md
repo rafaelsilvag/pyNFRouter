@@ -15,8 +15,8 @@ $ sudo apt-get install libnetfilter-queue-dev libnetfilter-queue1
 NetfilterQueue module install:
 
 ```sh
-$ sudo apt-get install libnetfilter-queue-python
-pip install NetfilterQueue  
+$ sudo apt-get install libnetfilter-queue-python python-scapy python-ipaddr
+$ sudo pip install NetfilterQueue
 ```
 
 Usage

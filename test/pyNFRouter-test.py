@@ -1,7 +1,7 @@
 """ Teste pyNFRouter
 
 authors: Rafael S. Guimaraes (rafaelg@ifes.edu.br)
-         Joao Paulo Brito Goncalves ()
+         Joao Paulo Brito Goncalves (jpaulo@ifes.edu.br)
 
 Three switches connected:
 
@@ -9,19 +9,24 @@ Three switches connected:
                |      
                |            
                |      
-       	       h3
+               h3
 
 """
 
 from mininet.topo import Topo
 
+
 class pyNFRouter(Topo):
-    "pyNFRouter Test"
+    """
+        pyNFRouter Test
+    """
 
-    def __init__( self, enable_all = True ):
-        "Create custom topo."
+    def __init__(self):
+        """
+            Create custom topo.
+        """
 
-        Topo.__init__( self )
+        Topo.__init__(self)
 
         h1 = self.addHost("h1",
                           ip="172.31.1.100/24",
@@ -35,21 +40,21 @@ class pyNFRouter(Topo):
                           ip="172.31.3.100/24",
                           defaultRoute="gw 172.31.3.1")
 
-	r01 = self.addHost("r01",
-			  ip="172.31.1.1/24")
+        r01 = self.addHost("r01",
+                           ip="172.31.1.1/24")
  
         s1 = self.addSwitch("s1")
         s2 = self.addSwitch("s2")
         s3 = self.addSwitch("s3")
-	
-	# Add Hosts on switch on private LAN
+
+        # Add Hosts on switch on private LAN
         self.addLink(h1, s1)
         self.addLink(h2, s2)
         self.addLink(h3, s3)
 
-	# Add Router on switch on LANs
-	self.addLink(r01, s1)
-	self.addLink(r01, s2)
-	self.addLink(r01, s3)
+        # Add Router on switch on LANs
+        self.addLink(r01, s1)
+        self.addLink(r01, s2)
+        self.addLink(r01, s3)
 
-topos =  {'pyNFRouter': (lambda: pyNFRouter() )}
+topos = {'pyNFRouter': (lambda: pyNFRouter())}

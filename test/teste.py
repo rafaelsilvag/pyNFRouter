@@ -1,27 +1,30 @@
-import nfqueue
-#from netfilterqueue import NetfilterQueue
-from dpkt import ip
-import socket 
+from netfilterqueue import NetfilterQueue
+from dpkt import ip, icmp, tcp, udp
+from scapy.all import *
+import socket
 
 def print_and_accept(pkt):
-    data=pkt.get_data()
-    res = ip.IP(data)    
+    data=pkt.get_payload()
+    res = ip.IP(data)
+    res2 = IP(data)
+    i = ICMP(data)
+    t = TCP(data)
+    u = UDP(data)
     print "SOURCE IP: %s\tDESTINATION IP: %s" % (socket.inet_ntoa(res.src),socket.inet_ntoa(res.dst))
-    #pkt.set_verdict(nfqueue.NF_ACCEPT)
-    pkt.set_verdict_mark(nfqueue.NF_ACCEPT, 1)
-    print dir(pkt)
-    #pkt.accept()
 
-q = nfqueue.queue()
-#q.open()
-#q.bind(1)
-q.set_callback(print_and_accept)
-q.fast_open(0, socket.AF_INET)
-q.set_mode(nfqueue.NFQNL_COPY_PACKET)
-#q.create_queue(1)
-#nfqueue = NetfilterQueue()
-#nfqueue.bind(1, print_and_accept)
+    print res2.show2()
+    resp=srp1(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst='192.168.0.34'),iface="eth0",timeout=2)
+    print resp.dst
+    eth_dst = resp.src
+    eth_src = resp.dst
+    eth = Ether(src=eth_src, dst=eth_dst)
+    eth.type = 2048
+    sendp(eth/res2/res2,iface="eth0")
+    pkt.accept()
+
+nfqueue = NetfilterQueue()
+nfqueue.bind(2, print_and_accept)
 try:
-    q.try_run()
-except KeyboardInterrupt:
-    print
+    nfqueue.run()
+except KeyboardInterrupt, ex:
+    print ex
