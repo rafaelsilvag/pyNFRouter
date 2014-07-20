@@ -1,0 +1,6 @@
+WARNING: No route found for IPv6 destination :: (no default route?)
+Traceback (most recent call last):
+  File "/home/mininet/pyNFRouter-test/teste.py", line 36, in <module>
+    nfqueue = NetfilterQueue()
+  File "netfilterqueue.pyx", line 129, in netfilterqueue.NetfilterQueue.__cinit__ (netfilterqueue.c:2436)
+OSError: Failed to bind family 2. Are you root?
